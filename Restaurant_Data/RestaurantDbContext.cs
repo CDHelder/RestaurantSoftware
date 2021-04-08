@@ -27,6 +27,8 @@ namespace Restaurant_Data
                     ProductId = 2, Name = "Lasagne", FoodType = FoodType.Main, Price = 25
                 });
 
+            //builder.Entity<Order>().HasOne<Table>().WithOne(b => b.Order).
+
             builder.Entity<Table>().HasData(
                 new Table
                 {

@@ -11,6 +11,7 @@ namespace Restaurant_Core
         [Key]
         public int OrderId { get; set; }
 
+        [ForeignKey("Table")]
         public int TableId { get; set; }
 
         public int OrderProductsId { get; set; }

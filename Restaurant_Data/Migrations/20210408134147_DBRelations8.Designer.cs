@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restaurant_Data;
 
 namespace Restaurant_Data.Migrations
 {
     [DbContext(typeof(RestaurantDbContext))]
-    partial class RestaurantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210408134147_DBRelations8")]
+    partial class DBRelations8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,9 +34,14 @@ namespace Restaurant_Data.Migrations
                     b.Property<int?>("OrderProductsId1")
                         .HasColumnType("int");
 
+                    b.Property<int>("TableId")
+                        .HasColumnType("int");
+
                     b.HasKey("OrderId");
 
                     b.HasIndex("OrderProductsId1");
+
+                    b.HasIndex("TableId");
 
                     b.ToTable("Orders");
                 });
@@ -386,7 +393,15 @@ namespace Restaurant_Data.Migrations
                         .WithMany()
                         .HasForeignKey("OrderProductsId1");
 
+                    b.HasOne("Restaurant_Core.Table", "Table")
+                        .WithMany()
+                        .HasForeignKey("TableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("OrderProducts");
+
+                    b.Navigation("Table");
                 });
 
             modelBuilder.Entity("Restaurant_Core.Product", b =>
